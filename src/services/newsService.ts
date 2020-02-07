@@ -1,43 +1,47 @@
-import { ArticleType, NewsArticle } from '../types';
+import { ArticleType, NewsArticle } from "../types";
 
-const url = '/data/articles.json';
+const url = "http://localhost:5000";
 
 class NewsService {
-
   getArticlesByType(articleType: ArticleType): Promise<NewsArticle[]> {
     return fetch(url)
-      .then((response) => {
+      .then(response => {
         return response.json();
       })
-      .then((serverArticles) => {
-
+      .then(serverArticles => {
         const newsArticles = serverArticles
-          .filter((serverArticle: any) => serverArticle.articleType === articleType)
+          .filter(
+            (serverArticle: any) => serverArticle.articleType === articleType
+          )
           .map(this.map);
-
         return newsArticles;
       })
-      .catch((e) => {
-        console.error('An error occurred retrieving the news articles from ' + url, e);
-      })
+      .catch(e => {
+        console.error(
+          "An error occurred retrieving the news articles from " + url,
+          e
+        );
+      });
   }
 
   getFavorites(): Promise<NewsArticle[]> {
-
     return fetch(url)
-      .then((response) => {
+      .then(response => {
         return response.json();
       })
-      .then((serverArticles) => {
+      .then(serverArticles => {
         const newsArticles = serverArticles
           .filter((serverArticle: any) => serverArticle.isFavourite === true)
           .map(this.map);
 
         return newsArticles;
       })
-      .catch((e) => {
-        console.error('An error occurred retrieving the news articles from ' + url, e);
-      })
+      .catch(e => {
+        console.error(
+          "An error occurred retrieving the news articles from " + url,
+          e
+        );
+      });
   }
 
   private map(serverArticle: any): NewsArticle {
@@ -51,7 +55,6 @@ class NewsService {
       isFavourite: serverArticle.isFavourite
     } as NewsArticle;
   }
-
 }
 
 export default new NewsService();
