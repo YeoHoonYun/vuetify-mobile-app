@@ -42,8 +42,7 @@ import { Component, Vue } from "vue-property-decorator";
 import LoginService from "../services/loginService";
 import { LoginType, UserInfoModel } from "../types";
 import Storage from "vue-web-storage";
-
-
+Vue.use(Storage)
 // Vue.use(Storage, {
 //   prefix: "your_app_slug_", // default `app_`
 //   drivers: ["session", "local"] // default 'local'
@@ -64,11 +63,16 @@ export default class LoginForm extends Vue {
     };
     var result = LoginService.getUserInfoModel(login)
     result.then(function(loginInfo) {
-      Vue.$localStorage.set('usrInfo', JSON.stringify(loginInfo))
+      if (loginInfo == undefined){
+        alert("로그인에 실패하였습니다.")
+      }else{
+        Vue.$localStorage.set('usrInfo', JSON.stringify(loginInfo))
+        alert("로그인 되었습니다.")
+        window.location.href = document.URL.split("/")[0] + "/prescription";
+      }
+    }).catch(function(error){
+      alert("로그인 실패하였습니다.")
     });
-    console.log(document.PATH)
-    alert("로그인 되었습니다.")
-    window.location.href = document.URL.split("/")[0] + "/top-stories";
 
   }
 }

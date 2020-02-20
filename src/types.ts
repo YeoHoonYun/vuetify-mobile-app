@@ -36,6 +36,12 @@ export interface LoginInPutType {
   UserPW: string;
 }
 
+export interface PrescritInputModel {
+  HospitalID: string;
+  status: number;
+  IssueNo: string;
+}
+
 export interface UserInfoModel {
   UserName: string;
   UserTel: string;
@@ -61,4 +67,32 @@ export interface UserInfoModel {
   PharmBizNo: string;
   PharmSunSttTime: string;
   UserType: string;
+}
+
+export interface PreMassageType {
+  ResultMsg: string;
+  PresInfos: PresInfo[];
+  ResultCode: string;
+}
+
+export interface PresInfo {
+  Status: string;
+  IssueNoSeq: string;
+  ReplaceReason: string;
+  UserTel: string;
+  ExtendRequestEndTime: string;
+  ReceiveNo: string;
+  HospitalID: string;
+  RequestUrl: string;
+  PatientName: string;
+  RequestEndTime: string;
+  RejectReasonDetails: string;
+  CancelReason: string;
+  IssueNo: string;
+  UpdatedID: string;
+  RequestToken: string;
+  RejectReason: string;
+  UpdatedTime: string;
+  RequestSttTime: string;
+  CancelReasonDetails: string;
 }

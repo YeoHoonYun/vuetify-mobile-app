@@ -1,35 +1,49 @@
 <template>
   <div>
-    <v-navigation-drawer app fixed v-model="showMenu">
+    <v-navigation-drawer app fixed v-model="showMenu" class="sm-2">
       <v-list dense>
-        <v-list-item @click="doNothing">
+        <v-list-item :to="{ path: '/prescription' }">
           <v-list-item-action>
-            <v-icon>settings</v-icon>
+            <v-icon>home</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Settings</v-list-item-title>
+            <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item @click="doNothing">
+        <v-list-item :to="{ path: '/about' }">
           <v-list-item-action>
             <v-icon>help</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Help</v-list-item-title>
+            <v-list-item-title>About</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item @click="logout">
+          <v-list-item-action>
+            <v-icon>mdi-cloud-upload</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-
     <v-app-bar app fixed dark color="primary">
       <v-app-bar-nav-icon @click.stop="toggleMenu"></v-app-bar-nav-icon>
 
       <v-toolbar-title>{{ title }}</v-toolbar-title>
-
       <v-spacer></v-spacer>
-      <v-btn color="blue-grey" class="ma-2 white--text" @click="logout">
-        logout
-      </v-btn>
+      <div>
+        <v-btn
+          class="ma-2"
+          color="blue-grey"
+          dark
+          :to="{ path: '/prescription' }"
+          v-if="view_check"
+        >
+          <v-icon blue left>mdi-arrow-left</v-icon>Home
+        </v-btn>
+      </div>
     </v-app-bar>
   </div>
 </template>
@@ -42,8 +56,18 @@ import Storage from "vue-web-storage";
 
 @Component
 export default class TopToolbar extends Vue {
-  @Getter("title", { namespace: "topToolbar" }) title!: string;
+  items: String[] = ["Foo", "Bar", "Fizz", "Buzz"];
 
+  @Getter("title", { namespace: "topToolbar" }) title!: string;
+  view_check = true;
+  created() {
+    if (["/"].includes(window.location.pathname)) {
+      this.view_check = false;
+    } else {
+      this.beforeDetail = Vue.$localStorage.get("beforeDatailPath");
+      this.view_check = true;
+    }
+  }
   showMenu: boolean = false;
 
   toggleMenu(): void {
@@ -60,6 +84,13 @@ export default class TopToolbar extends Vue {
       window.location.href = "http://" + document.URL.split("/")[2] + "/";
     }
   }
+
+  home(): void {
+    window.location.href =
+      "http://" + document.URL.split("/")[2] + "/prescription";
+  }
+
+  data: () => {};
 
   doNothing(): void {}
 }
