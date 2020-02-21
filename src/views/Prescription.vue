@@ -61,6 +61,7 @@ export default class Prescription extends Vue {
     } else {
       var result = JSON.parse(Vue.$localStorage.get("usrInfo"));
       const socket = io("http://localhost:3000", {
+        // const socket = io("https://pharmgo.gosuite.kr", {
         query: { token: result.Token }
       });
       var usrInfo: UserInfoModel = JSON.parse(Vue.$localStorage.get("usrInfo"));
@@ -82,11 +83,13 @@ export default class Prescription extends Vue {
             // console.log(document.documentElement.scrollHeight);
             window.scrollTo(
               0,
-              document.body.scrollHeight + 100 ||
-                document.documentElement.scrollHeight + 100
+              document.body.scrollHeight ||
+                document.documentElement.scrollHeight
             );
           });
           socket.on("20", function(msg) {
+            console.log("test");
+            console.log(msg.body);
             PresInfos.push(msg.body);
             this.PresInfos = PresInfos;
             // window.location.reload();

@@ -53,6 +53,7 @@ export default class PrescripDetail extends Vue {
     } else {
       var result = JSON.parse(Vue.$localStorage.get("usrInfo"));
       const socket = io("http://localhost:3000", {
+        // const socket = io("https://pharmgo.gosuite.kr", {
         query: { token: result.token }
       });
 
