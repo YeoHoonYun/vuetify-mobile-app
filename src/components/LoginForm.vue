@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container fluid fill-height>
+    <v-container fluid fill-height style="width:100%;height:100%">
       <v-layout flex align-center justify-center row class="text-xs-center">
         <v-flex xs4 class="grey lighten-4">
           <v-container

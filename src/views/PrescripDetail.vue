@@ -52,8 +52,8 @@ export default class PrescripDetail extends Vue {
       window.location.href = "http://" + document.URL.split("/")[2] + "/";
     } else {
       var result = JSON.parse(Vue.$localStorage.get("usrInfo"));
-      const socket = io("http://localhost:3000", {
-        // const socket = io("https://pharmgo.gosuite.kr", {
+      // const socket = io("http://localhost:3000", {
+      const socket = io("https://pharmgo.gosuite.kr", {
         query: { token: result.token }
       });
 

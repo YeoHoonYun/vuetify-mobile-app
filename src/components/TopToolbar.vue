@@ -28,10 +28,10 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar app fixed dark color="primary">
+    <v-app-bar app fixed dark color="primary" height="85%">
       <v-app-bar-nav-icon @click.stop="toggleMenu"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
+      <v-toolbar-title style="font-size:22px">{{ title }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <div>
         <v-btn
